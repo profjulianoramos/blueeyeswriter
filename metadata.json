@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Blue Eyes Writer",
+  "description": "A professional Markdown editor with a Microsoft Office-inspired Ribbon UI. Supports opening .txt/.md files and exporting to .md, .odt, and .pdf.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

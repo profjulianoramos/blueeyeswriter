@@ -1,0 +1,63 @@
+{
+  "name": "blue-eyes-writer",
+  "version": "1.5.0",
+  "description": "Editor de Markdown profissional com interface inspirada no Office.",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "start": "electron .",
+    "build:linux": "npm install && vite build && electron-builder --linux AppImage"
+  },
+  "author": "Blue Eyes Team",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "lucide-react": "^0.564.0",
+    "@google/genai": "^1.41.0",
+    "jspdf": "^2.5.1",
+    "html2canvas": "^1.4.1",
+    "marked": "^15.0.0",
+    "react-markdown": "^9.0.1",
+    "remark-gfm": "^4.0.0",
+    "turndown": "^7.2.0",
+    "turndown-plugin-gfm": "^1.0.2",
+    "prismjs": "^1.29.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@types/turndown": "^5.0.4",
+    "@types/prismjs": "^1.26.4",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.3.1"
+  },
+  "build": {
+    "appId": "com.blueeyes.writer",
+    "productName": "Blue Eyes Writer",
+    "linux": {
+      "target": [
+        "AppImage"
+      ],
+      "category": "Office",
+      "executableName": "blue-eyes-writer"
+    },
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist/**/*",
+      "main.js",
+      "package.json"
+    ]
+  }
+}

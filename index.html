@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Eyes Writer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- PrismJS CSS (One Dark Theme) para Syntax Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-one-dark.min.css" rel="stylesheet" />
+    
+    <style>
+        :root {
+            /* Default: Clean Modern (Base) */
+            --theme-bg: #f3f4f6;
+            --theme-paper-bg: #ffffff;
+            --theme-text: #111827;
+            --theme-text-secondary: #6b7280;
+            
+            --theme-primary: #ffffff;
+            --theme-on-primary: #111827;
+            
+            --theme-border: #e5e7eb;
+            --theme-accent: #4f46e5; /* Indigo */
+            --theme-on-accent: #ffffff;
+            
+            --theme-ribbon-bg: rgba(255, 255, 255, 0.85);
+            --theme-gutter-bg: transparent;
+            --theme-gutter-text: #9ca3af;
+            --theme-editor-bg: #ffffff; /* Fundo interno do editor visual */
+            
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            
+            --editor-line-height: 1.7;
+            --font-sans: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--theme-bg);
+            color: var(--theme-text);
+            font-family: var(--font-sans);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* --- THEME DEFINITIONS --- */
+
+        /* 1. Office Classic (Clean White/Blue) */
+        [data-theme='office-classic'] {
+            --theme-bg: #f0f2f5;
+            --theme-paper-bg: #ffffff;
+            --theme-text: #1f2937;
+            --theme-text-secondary: #4b5563;
+            --theme-primary: #ffffff;
+            --theme-on-primary: #1f2937;
+            --theme-border: #e2e8f0;
+            --theme-accent: #2563eb; /* Royal Blue */
+            --theme-on-accent: #ffffff;
+            --theme-ribbon-bg: rgba(255, 255, 255, 0.95);
+            --theme-editor-bg: #ffffff;
+        }
+
+        /* 2. Google Docs Style */
+        [data-theme='google-docs'] {
+            --theme-bg: #f8f9fa; /* Cinza muito claro */
+            --theme-paper-bg: #ffffff;
+            --theme-text: #202124;
+            --theme-text-secondary: #5f6368;
+            --theme-primary: #ffffff;
+            --theme-on-primary: #202124;
+            --theme-border: #dadce0;
+            --theme-accent: #1a73e8; /* Google Blue */
+            --theme-on-accent: #ffffff;
+            --theme-ribbon-bg: #ffffff;
+            --theme-editor-bg: #ffffff;
+            --shadow-lg: 0 1px 3px 0 rgba(60,64,67,0.3), 0 4px 8px 3px rgba(60,64,67,0.15); /* Sombra estilo material */
+        }
+
+        /* 3. macOS Air */
+        [data-theme='macos'] {
+            --theme-bg: #eef2f6; /* Azulado ultra claro */
+            --theme-paper-bg: #ffffff;
+            --theme-text: #000000;
+            --theme-text-secondary: #86868b;
+            --theme-primary: #ffffff; /* Translucido handled by glass-panel class */
+            --theme-on-primary: #000000;
+            --theme-border: #d2d2d7;
+            --theme-accent: #007aff; /* Apple Blue */
+            --theme-on-accent: #ffffff;
+            --theme-ribbon-bg: rgba(255, 255, 255, 0.6);
+            --theme-editor-bg: #ffffff;
+        }
+
+        /* 4. Midnight Dark */
+        [data-theme='dark'] {
+            --theme-bg: #0f1115;
+            --theme-paper-bg: #181a1f;
+            --theme-text: #e5e7eb;
+            --theme-text-secondary: #9ca3af;
+            --theme-primary: #181a1f;
+            --theme-on-primary: #e5e7eb;
+            --theme-border: #2d3139;
+            --theme-accent: #60a5fa; /* Blue 400 */
+            --theme-on-accent: #111827;
+            --theme-ribbon-bg: rgba(24, 26, 31, 0.8);
+            --theme-gutter-bg: transparent;
+            --theme-gutter-text: #4b5563;
+            --theme-editor-bg: #181a1f;
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 5. Terminal Hacker */
+        [data-theme='hacker'] {
+             --theme-bg: #000000;
+             --theme-paper-bg: #0d1117;
+             --theme-text: #00ff00;
+             --theme-text-secondary: #008f00;
+             --theme-primary: #000000;
+             --theme-on-primary: #00ff00;
+             --theme-border: #30363d;
+             --theme-accent: #00ff00;
+             --theme-on-accent: #000000;
+             --theme-ribbon-bg: rgba(0, 0, 0, 0.9);
+             --theme-editor-bg: #0d1117;
+             --font-sans: 'JetBrains Mono', monospace; /* Force monospace everywhere */
+        }
+
+        /* Classes Utilitárias do Tema Moderno */
+        .office-blue {
+            background-color: var(--theme-primary);
+            color: var(--theme-on-primary);
+            border-bottom: 1px solid var(--theme-border);
+        }
+        
+        .office-border {
+            border-color: var(--theme-border);
+        }
+
+        .paper-shadow {
+            background-color: var(--theme-paper-bg);
+            box-shadow: var(--shadow-lg);
+            border-radius: 12px;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .glass-panel {
+            background-color: var(--theme-ribbon-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--theme-border);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--theme-border);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--theme-text-secondary);
+        }
+
+        /* Editor Visual (WYSIWYG) Clean */
+        .visual-editor {
+            outline: none;
+            min-height: 100%;
+        }
+        .visual-editor h1 { font-size: 2.25em; font-weight: 800; letter-spacing: -0.025em; color: var(--theme-text); margin-top: 1.5em; margin-bottom: 0.8em; line-height: 1.2; }
+        .visual-editor h2 { font-size: 1.75em; font-weight: 700; letter-spacing: -0.025em; color: var(--theme-text); margin-top: 1.5em; margin-bottom: 0.6em; }
+        .visual-editor h3 { font-size: 1.4em; font-weight: 600; color: var(--theme-text); margin-top: 1.2em; margin-bottom: 0.5em; }
+        .visual-editor p { margin-bottom: 1.2em; line-height: 1.7; color: var(--theme-text); }
+        .visual-editor ul { list-style-type: disc; padding-left: 1.5em; margin-bottom: 1.2em; }
+        .visual-editor ol { list-style-type: decimal; padding-left: 1.5em; margin-bottom: 1.2em; }
+        .visual-editor li { margin-bottom: 0.4em; padding-left: 0.2em; }
+        
+        .visual-editor blockquote { 
+            border-left: 3px solid var(--theme-accent); 
+            background: rgba(127, 127, 127, 0.1); /* Transparencia para funcionar no dark mode */
+            padding: 0.8em 1.2em; 
+            border-radius: 0 8px 8px 0;
+            color: var(--theme-text-secondary);
+            font-style: italic; 
+            margin: 1.5em 0; 
+        }
+        
+        .visual-editor :not(pre) > code { 
+            background: rgba(127, 127, 127, 0.15); 
+            padding: 2px 6px; 
+            border-radius: 6px; 
+            font-family: 'JetBrains Mono', monospace; 
+            color: var(--theme-accent); 
+            font-size: 0.9em;
+        }
+        
+        .visual-editor pre { 
+            background: #1e1e1e !important; 
+            padding: 1.2em; 
+            border-radius: 12px; 
+            box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.05);
+            margin: 1.5em 0; 
+            border: 1px solid rgba(127,127,127,0.2);
+            color: #e5e7eb; /* Sempre claro no bloco de codigo escuro */
+        }
+
+        .visual-editor img { max-width: 100%; height: auto; border-radius: 12px; box-shadow: var(--shadow-md); display: block; margin: 1.5em auto; }
+        
+        .visual-editor table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 1.5em 0; border: 1px solid var(--theme-border); border-radius: 8px; overflow: hidden; }
+        .visual-editor th { background-color: rgba(127,127,127,0.05); font-weight: 600; text-align: left; padding: 12px; border-bottom: 1px solid var(--theme-border); color: var(--theme-text); }
+        .visual-editor td { padding: 12px; border-bottom: 1px solid var(--theme-border); color: var(--theme-text); }
+        .visual-editor tr:last-child td { border-bottom: none; }
+        .visual-editor a { color: var(--theme-accent); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        .visual-editor a:hover { border-bottom-color: var(--theme-accent); }
+        .visual-editor hr { margin: 2.5em 0; border: 0; height: 1px; background: var(--theme-border); }
+
+        .editor-textarea { caret-color: var(--theme-accent); }
+
+        @media print { .no-print { display: none !important; } }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.564.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.41.0",
+    "remark-gfm": "https://esm.sh/remark-gfm@^4.0.1",
+    "jspdf": "https://esm.sh/jspdf@^4.1.0",
+    "html2canvas": "https://esm.sh/html2canvas@^1.4.1",
+    "marked": "https://esm.sh/marked@^15.0.0",
+    "turndown": "https://esm.sh/turndown@7.1.1",
+    "turndown-plugin-gfm": "https://esm.sh/turndown-plugin-gfm@1.0.2",
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
+    "electron": "https://esm.sh/electron@^40.4.1",
+    "path": "https://esm.sh/path@^0.12.7",
+    "url": "https://esm.sh/url@^0.11.4",
+    "vite": "https://esm.sh/vite@^7.3.1",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.4",
+    "prismjs": "https://esm.sh/prismjs@1.29.0",
+    "prismjs/": "https://esm.sh/prismjs@1.29.0/"
+  }
+}
+</script>
+</head>
+<body class="h-screen w-screen overflow-hidden selection:bg-[var(--theme-accent)] selection:text-[var(--theme-on-accent)]">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+</body>
+</html>
